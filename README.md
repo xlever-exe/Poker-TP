@@ -8,9 +8,9 @@ Specificatii proiect:
   -Numar de jucatori: 2-6
 2. Reprezentarea datelor:
   -Structura Deck ( array de 52 de carti)
-  -Structura carti:  trebuie suita (♠ ♥ ♦ ♣) si rang (2-14)
-  -Structura pentru Player: mana (2 carti), bani, stare (activ, fold, all-in)
-  -Structura joc: pot, runda, jucatori...
+  -Structura Carti:  trebuie suita (♠ ♥ ♦ ♣) si rang (2-14)
+  -Structura Player: mana (2 carti), bani, stare (activ, fold, all-in)
+  -Structura Joc: pot, runda, jucatori...
 3. Random Shuffle
   -BOGO SORT? :)
 4. Logica Jocului
