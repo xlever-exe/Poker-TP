@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <time.h>
+
 #include "cards.h"
 
 void InitDeck(Deck *deck) {
@@ -33,7 +33,7 @@ void BogoShuffle(Deck *deck,int MaxAttempts) { // un fel de bogosort ( nu prea a
     }
 
 }
-//test pentru carti
+
 const char* suitToString(int suit) {
     switch (suit) {
         case HEARTS: return "HEARTS";
@@ -62,21 +62,16 @@ const char* rankToString(int rank) {
         default: return "UNKNOWN";
     }
 }
-
-int main (void) {
-    srand(time(NULL));
-    Deck deck;
-    InitDeck(&deck);
-    RandomizeDeck(&deck);
-    BogoShuffle(&deck, rand () % DECK_SIZE);
-    for (int i = 0; i < DECK_SIZE; i++) {
-        printf("%s of %s\n",
-            rankToString(deck.cards[i].rank),
-            suitToString(deck.cards[i].suit));
-    }
-
-    return 0;
+void PrintHand(Player player, int PlayerNumber) {
+    printf("Player %d's Hand: [%s of %s] | [%s of %s]\n",
+    PlayerNumber,
+    rankToString(player.hand[0].rank),
+    suitToString(player.hand[0].suit),
+    rankToString(player.hand[1].rank),
+    suitToString(player.hand[1].suit));
 }
+
+
 
 
 

@@ -30,9 +30,29 @@ typedef struct {
     int top; // urmatoarea carte
 }Deck;
 
+#define MAX_PLAYERS 6
+
+typedef struct {
+    Card hand[2];
+} Player;
+
+//deck
+
 void InitDeck(Deck *deck);
-void ShuffleDeck(Deck *deck);
+void RandomizeDeck(Deck *deck);
+void BogoShuffle(Deck *deck,int MaxAttempts);
+
+//print
+
+const char* rankToString(int rank);
+const char* suitToString(int suit);
+void PrintHand(Player player, int PlayerNumber);
+
+//deal
+
+void DealStartingHands(Deck *deck, Player players[], int numPlayers);
 Card DrawCard(Deck *deck);
+
 
 #endif //POKER_TP_CARDS_H
 
