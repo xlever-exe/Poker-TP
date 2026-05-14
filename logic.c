@@ -4,7 +4,7 @@ int CompareHands(HandScore a, HandScore b) {
     if (a.category > b.category) return 1;
     if (a.category < b.category) return -1;
 
-    // If categories are the same, compare the values/kickers left to right
+   
     for (int i = 0; i < 5; i++) {
         if (a.values[i] > b.values[i]) return 1;
         if (a.values[i] < b.values[i]) return -1;
@@ -15,13 +15,13 @@ int CompareHands(HandScore a, HandScore b) {
 HandScore EvaluateHand(Card hole[2], Card community[5]) {
     HandScore score = {HIGH_CARD, {0}};
 
-    // 1. Combine into 7 cards
+   
     Card cards[7];
     cards[0] = hole[0]; cards[1] = hole[1];
     for(int i = 0; i < 5; i++) cards[i+2] = community[i];
 
-    // 2. Count Frequencies
-    int rank_counts[15] = {0}; // Indices 2 through 14 (ACE)
+ 
+    int rank_counts[15] = {0}; 
     int suit_counts[4] = {0};
 
     for(int i = 0; i < 7; i++) {
@@ -29,7 +29,7 @@ HandScore EvaluateHand(Card hole[2], Card community[5]) {
         suit_counts[cards[i].suit]++;
     }
 
-    // 3. Find Multiples (Iterate backwards to find highest first)
+   
     int quads = 0, trips = 0;
     int pairs[2] = {0, 0};
 
@@ -37,7 +37,7 @@ HandScore EvaluateHand(Card hole[2], Card community[5]) {
         if (rank_counts[i] == 4) quads = i;
         else if (rank_counts[i] == 3) {
             if (trips == 0) trips = i;
-            else pairs[0] = i; // If you have two sets of 3, the lower one acts as a pair for a Full House
+            else pairs[0] = i; 
         }
         else if (rank_counts[i] == 2) {
             if (pairs[0] == 0) pairs[0] = i;
@@ -45,10 +45,8 @@ HandScore EvaluateHand(Card hole[2], Card community[5]) {
         }
     }
 
-    // 4. Assign Hand Category and Fill 'values' (Top-Down)
+   
 
-    // Note: You will need to add Straight, Flush, and Straight Flush logic here.
-    // We are skipping to Full House / Quads for brevity, but the structure remains the same.
 
     if (quads > 0) {
         score.category = FOUR_OF_A_KIND;
@@ -63,8 +61,8 @@ HandScore EvaluateHand(Card hole[2], Card community[5]) {
     }
     else if (trips > 0 && pairs[0] > 0) {
         score.category = FULL_HOUSE;
-        score.values[0] = trips;     // Primary is the 3-of-a-kind
-        score.values[1] = pairs[0];  // Secondary is the pair
+        score.values[0] = trips;    
+        score.values[1] = pairs[0]; 
     }
     else if (trips > 0) {
         score.category = THREE_OF_A_KIND;
@@ -72,17 +70,17 @@ HandScore EvaluateHand(Card hole[2], Card community[5]) {
         int v_idx = 1;
         for(int i = 14; i >= 2 && v_idx < 3; i--) {
             if (rank_counts[i] > 0 && i != trips) {
-                score.values[v_idx++] = i; // Top 2 kickers
+                score.values[v_idx++] = i; 
             }
         }
     }
     else if (pairs[0] > 0 && pairs[1] > 0) {
         score.category = TWO_PAIR;
-        score.values[0] = pairs[0]; // Highest pair
-        score.values[1] = pairs[1]; // Second pair
+        score.values[0] = pairs[0]; 
+        score.values[1] = pairs[1]; 
         for(int i = 14; i >= 2; i--) {
             if (rank_counts[i] > 0 && i != pairs[0] && i != pairs[1]) {
-                score.values[2] = i; // Top kicker
+                score.values[2] = i; 
                 break;
             }
         }
@@ -93,7 +91,7 @@ HandScore EvaluateHand(Card hole[2], Card community[5]) {
         int v_idx = 1;
         for(int i = 14; i >= 2 && v_idx < 4; i--) {
             if (rank_counts[i] > 0 && i != pairs[0]) {
-                score.values[v_idx++] = i; // Top 3 kickers
+                score.values[v_idx++] = i; 
             }
         }
     }
@@ -102,7 +100,7 @@ HandScore EvaluateHand(Card hole[2], Card community[5]) {
         int v_idx = 0;
         for(int i = 14; i >= 2 && v_idx < 5; i--) {
             if (rank_counts[i] > 0) {
-                score.values[v_idx++] = i; // Top 5 cards
+                score.values[v_idx++] = i; 
             }
         }
     }
