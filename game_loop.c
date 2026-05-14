@@ -11,7 +11,7 @@ void InitPlayers(Player players[], int numPlayers, int startingChips) {
     }
 }
 
-// Resets bets and pot for a new round of betting (e.g., Flop -> Turn)
+// Resets bets and pot for a new round of betting 
 void ResetBettingRound(Player players[], int numPlayers, GameState *state) {
     state->currentHighestBet = 0;
     for (int i = 0; i < numPlayers; i++) {
@@ -39,9 +39,7 @@ void ConductBettingRound(Player players[], int numPlayers, GameState *state) {
                        state->currentHighestBet - players[i].currentBet,
                        players[i].chips);
 
-                // --- PLACEHOLDER FOR USER INPUT ---
-                // For now, we will simulate a simple AI: Always Call.
-                // Later, you will add `scanf` here to ask: 1. Fold 2. Call 3. Raise
+              
 
                 int amountToCall = state->currentHighestBet - players[i].currentBet;
 
@@ -51,15 +49,12 @@ void ConductBettingRound(Player players[], int numPlayers, GameState *state) {
                     players[i].currentBet += amountToCall;
                     state->pot += amountToCall;
                 } else {
-                    // All-in logic goes here
+                   
                     printf("Player %d FOLDS (Not enough chips to call).\n", i + 1);
                     players[i].hasFolded = 1;
                     state->activePlayers--;
                 }
 
-                // If someone raised here, you would set:
-                // state->currentHighestBet = newTotalBet;
-                // bettingActive = 1; // This forces the while-loop to run again so others can respond to the raise!
             }
         }
     }
