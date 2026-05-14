@@ -99,7 +99,7 @@ void InitPlayers(Player players[], int numPlayers, int startingChips);
 void ResetBettingRound(Player players[], int numPlayers, GameState *state);
 void ConductBettingRound(Player players[], int numPlayers, GameState *state);
 
-// Hand Evaluation (evaluate.c)
+// Hand Evaluation (logic.c)
 HandScore EvaluateHand(Card hole[2], Card community[5]);
 int CompareHands(HandScore a, HandScore b);
 
