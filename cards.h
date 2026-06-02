@@ -26,6 +26,8 @@ typedef struct {
     Suit suit;
 } Card;
 
+
+
 #define DECK_SIZE 52
 
 typedef struct {
@@ -47,11 +49,7 @@ typedef struct {
     int isAllIn;         // 1 if all in, 0 otherwise
 } Player;
 
-typedef struct {
-    int pot;                 // Total chips in the center
-    int currentHighestBet;   // The amount needed to stay in (to call)
-    int activePlayers;       // How many players haven't folded
-} GameState;
+
 
 
 // ==========================================
@@ -68,6 +66,21 @@ typedef enum {
     FOUR_OF_A_KIND,
     STRAIGHT_FLUSH
 } HandCategory;
+
+typedef enum {
+    PHASE_PREFLOP,
+    PHASE_FLOP,
+    PHASE_TURN,
+    PHASE_RIVER,
+    PHASE_SHOWDOWN
+} GamePhase;
+
+typedef struct {
+    int pot;
+    int currentHighestBet;
+    int activePlayers;
+    GamePhase phase;       // <--- NOU: Urmărește faza curentă a jocului
+} GameState;
 
 typedef struct {
     HandCategory category;
@@ -99,7 +112,7 @@ void InitPlayers(Player players[], int numPlayers, int startingChips);
 void ResetBettingRound(Player players[], int numPlayers, GameState *state);
 void ConductBettingRound(Player players[], int numPlayers, GameState *state);
 
-// Hand Evaluation (logic.c)
+// Hand Evaluation (evaluate.c)
 HandScore EvaluateHand(Card hole[2], Card community[5]);
 int CompareHands(HandScore a, HandScore b);
 

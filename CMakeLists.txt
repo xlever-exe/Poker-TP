@@ -18,7 +18,8 @@ add_executable(Poker_TP
         cards.h
         dealcards.c
         logic.c
-        game_loop.c)
+        game_loop.c
+        draw_cards.c)
 
 # 3. Link raylib to your game
 target_link_libraries(Poker_TP PRIVATE raylib)
